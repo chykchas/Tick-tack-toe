@@ -82,4 +82,9 @@ function Winner() {
     alert("Player O - Winner");
     location.reload();
   }
+  // checking for a draw
+  if (cells.every((cell) => Boolean(cell))) {
+    alert("Draw. Restarting game");
+    location.reload();
+  }
 }
