@@ -10,7 +10,7 @@ field.addEventListener("click", (elem) => {
     elem.target.textContent = "X";
     cells[index] = elem.target.dataset.value = "X";
 
-    setTimeout(() => Winner(), 10);
+    setTimeout(() => Winner("X"), 10);
     gamestep++;
   } else if (elem.target.dataset.value == "" && gamestep % 2 == 0) {
     index = elem.target.id;
@@ -18,12 +18,9 @@ field.addEventListener("click", (elem) => {
     elem.target.textContent = "O";
     cells[index] = elem.target.dataset.value = "O";
 
-    setTimeout(() => Winner(), 10);
+    setTimeout(() => Winner("O"), 10);
     gamestep++;
   } else return alert("choose another square");
-
-  console.log(cells);
-  console.log(gamestep);
 });
 
 /*
@@ -32,56 +29,25 @@ field.addEventListener("click", (elem) => {
     6   7   8
 */
 
-function Winner() {
-  if (cells[0] == "X" && cells[1] == "X" && cells[2] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[0] == "X" && cells[4] == "X" && cells[8] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[0] == "X" && cells[3] == "X" && cells[6] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[1] == "X" && cells[4] == "X" && cells[7] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[2] == "X" && cells[4] == "X" && cells[6] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[2] == "X" && cells[5] == "X" && cells[8] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[3] == "X" && cells[4] == "X" && cells[5] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[6] == "X" && cells[7] == "X" && cells[8] == "X") {
-    alert("Player X - Winner");
-    location.reload();
-  } else if (cells[0] == "O" && cells[1] == "O" && cells[2] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  } else if (cells[0] == "O" && cells[4] == "O" && cells[8] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  } else if (cells[0] == "O" && cells[3] == "O" && cells[6] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  } else if (cells[1] == "O" && cells[4] == "O" && cells[7] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  } else if (cells[2] == "O" && cells[4] == "O" && cells[6] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  } else if (cells[2] == "O" && cells[5] == "O" && cells[8] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  } else if (cells[3] == "O" && cells[4] == "O" && cells[5] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  } else if (cells[6] == "O" && cells[7] == "O" && cells[8] == "O") {
-    alert("Player O - Winner");
-    location.reload();
-  }
+function Winner(symb) {
+  let combinations = [
+    [cells[0], cells[1], cells[2]],
+    [cells[0], cells[4], cells[8]],
+    [cells[0], cells[3], cells[6]],
+    [cells[1], cells[4], cells[7]],
+    [cells[2], cells[4], cells[6]],
+    [cells[2], cells[5], cells[8]],
+    [cells[3], cells[4], cells[5]],
+    [cells[6], cells[7], cells[8]],
+  ];
+
+  combinations.forEach((combination) => {
+    if (combination.every((s) => s === symb)) {
+      alert(`Player ${symb} - Winner`);
+      location.reload();
+    }
+  });
+
   // checking for a draw
   if (cells.every((cell) => Boolean(cell))) {
     alert("Draw. Restarting game");
